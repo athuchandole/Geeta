@@ -1,0 +1,5 @@
+/* src/App.css */
+.content-wrapper {
+  padding-top: 70px;
+  /* same as or more than navbar height */
+}
