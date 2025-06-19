@@ -1,6 +1,7 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Loading from '../components/Loading';
 import chapterAPI from '../api/chapters';
 
 const Home = () => {
@@ -13,6 +14,8 @@ const Home = () => {
         };
         fetch();
     }, []);
+
+    if (chapters.length === 0) return <Loading />;
 
     return (
         <div style={{ padding: '20px' }}>

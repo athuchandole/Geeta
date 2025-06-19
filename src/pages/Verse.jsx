@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import verseAPI from '../api/verses';
+import Loading from '../components/Loading';
 
 const Verse = () => {
     const { chapterId, verseId } = useParams();
@@ -15,7 +16,7 @@ const Verse = () => {
         fetch();
     }, [chapterId, verseId]);
 
-    if (!verse) return <p>Loading verse...</p>;
+    if (!verse) return <Loading />;
 
     return (
         <div style={{ padding: '20px' }}>
