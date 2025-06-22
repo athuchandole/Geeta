@@ -1,10 +1,9 @@
-// src/pages/Verse.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import verseAPI from '../api/verses';
 import Loading from '../components/Loading';
 
-const Verse = () => {
+const ViewVerse = () => {
     const { chapterId, verseId } = useParams();
     const [verse, setVerse] = useState(null);
 
@@ -29,4 +28,4 @@ const Verse = () => {
     );
 };
 
-export default Verse;
+export default ViewVerse;
