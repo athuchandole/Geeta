@@ -1,0 +1,2 @@
+                        <p><strong>Summary:</strong> {ch.chapter_summary || 'Not available'}</p>
+                        <p><strong>Hindi Summary:</strong> {ch.chapter_summary_hindi || 'Not available'}</p>

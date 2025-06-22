@@ -18,21 +18,19 @@ const Chapter = () => {
     if (chapters.length === 0) return <Loading />;
 
     return (
-        <div className="home-container">
-            <h1 className="heading">📖 Bhagavad Gita - Chapters</h1>
-            <div className="cards-wrapper">
+        <div className="chapter-container">
+            <h1 className="chapter-heading">📜 श्रीमद्भगवद्गीता - Chapters</h1>
+            <div className="chapter-grid">
                 {chapters.map((ch) => (
-                    <div className="card" key={ch.id}>
-                        <h2>{ch.chapter_number}. {ch.name}</h2>
-                        <p><strong>Meaning:</strong> {ch.name_meaning}</p>
-                        <p><strong>Translation:</strong> {ch.name_translated}</p>
-                        <p><strong>Transliteration:</strong> {ch.name_transliterated}</p>
-                        <p><strong>Verses:</strong> {ch.verses_count}</p>
-                        <p><strong>Slug:</strong> {ch.slug}</p>
-                        <p><strong>Summary:</strong> {ch.chapter_summary || 'Not available'}</p>
-                        <p><strong>Hindi Summary:</strong> {ch.chapter_summary_hindi || 'Not available'}</p>
-                        <Link to={`/chapter/${ch.id}`} className="read-link">Read Chapter</Link>
-                    </div>
+                    <Link to={`/chapter/${ch.id}`} className="chapter-card" key={ch.id}>
+                        <div className="card-content">
+                            <h2>{ch.chapter_number}. {ch.name}</h2>
+                            <p><span>Meaning:</span> {ch.name_meaning}</p>
+                            <p><span>Translation:</span> {ch.name_translated}</p>
+                            <p><span>Transliteration:</span> {ch.name_transliterated}</p>
+                            <p><span>Verses:</span> {ch.verses_count}</p>
+                        </div>
+                    </Link>
                 ))}
             </div>
         </div>

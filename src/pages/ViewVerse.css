@@ -1,0 +1,65 @@
+.view-container {
+    padding: 40px 20px;
+    background-color: #f7f4ec;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.verse-card {
+    background: linear-gradient(145deg, #fffbe9, #fdf7e3);
+    border: 1px solid #e5d3a3;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 6px 18px rgba(158, 109, 0, 0.1);
+}
+
+.verse-title {
+    text-align: center;
+    color: #5e3209;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px #e5c07b;
+}
+
+.verse-section {
+    margin-bottom: 24px;
+}
+
+.verse-section h3 {
+    margin-bottom: 8px;
+    color: #8b4513;
+    font-size: 1.2rem;
+}
+
+.verse-section p {
+    font-size: 1rem;
+    color: #3b2e1e;
+    line-height: 1.6;
+}
+
+.sanskrit-text {
+    font-family: 'Noto Serif', 'Georgia', serif;
+    font-size: 1.15rem;
+    color: #4b2f0c;
+    white-space: pre-wrap;
+}
+
+.back-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.back-link a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #5e3209;
+    font-weight: bold;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
