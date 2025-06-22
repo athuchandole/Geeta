@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
@@ -13,14 +12,14 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-container">
-                <h2 className="logo">Bhagavad Gita</h2>
+                <div className="left-section">
+                    <h2 className="logo">Bhagavad Gita</h2>
+                </div>
 
                 <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
                     <Link to="/">Chapters</Link>
                     <Link to="/quotes">Quotes</Link>
                     <Link to="/about">About Gita</Link>
-                    <Link to="/gita-ai">Gita AI</Link>
-                    <Link to="/donate">Donate</Link>
                 </div>
 
                 <div className="navbar-actions">
@@ -31,9 +30,7 @@ const Navbar = () => {
                         <option value="mr">Marathi</option>
                         <option value="gu">Gujarati</option>
                     </select>
-                    <button className="hamburger" onClick={toggleMenu}>
-                        ☰
-                    </button>
+                    <button className="hamburger" onClick={toggleMenu}>☰</button>
                 </div>
             </div>
         </nav>

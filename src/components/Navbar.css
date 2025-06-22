@@ -1,15 +1,14 @@
-/* src/components/Navbar.css */
-
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background-color: white;
-    border-bottom: 1px solid #e5e7eb;
+    background: linear-gradient(to right, #fffbe9, #fdf7e3);
+    border-bottom: 1px solid #e5d3a3;
     z-index: 1000;
     padding: 10px 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Georgia', serif;
+    box-shadow: 0 4px 8px rgba(158, 109, 0, 0.08);
 }
 
 .navbar-container {
@@ -19,12 +18,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    /* allow wrapping on smaller screens */
 }
 
 .logo {
     font-size: 20px;
     font-weight: bold;
-    color: #111827;
+    color: #5e3209;
+    text-shadow: 1px 1px #e5c07b;
 }
 
 .nav-links {
@@ -34,19 +36,32 @@
 
 .nav-links a {
     text-decoration: none;
-    color: #111827;
+    color: #5a3e18;
     font-weight: 500;
     transition: color 0.3s;
+    position: relative;
 }
 
-.nav-links a:hover {
-    color: #007bff;
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0%;
+    height: 2px;
+    background-color: #d4af37;
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 .navbar-actions {
     display: flex;
     align-items: center;
     gap: 10px;
+    white-space: nowrap;
 }
 
 .theme-toggle {
@@ -54,12 +69,23 @@
     border: none;
     font-size: 18px;
     cursor: pointer;
+    color: #8b4513;
 }
 
 .language-dropdown {
     padding: 5px 8px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #e5d3a3;
+    background-color: #fffdf0;
+    font-family: inherit;
+    color: #5e3209;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.language-dropdown:focus {
+    outline: none;
+    border-color: #d4af37;
 }
 
 .hamburger {
@@ -68,6 +94,7 @@
     background: none;
     border: none;
     cursor: pointer;
+    color: #8b4513;
 }
 
 /* Responsive styles */
@@ -77,12 +104,12 @@
         top: 60px;
         left: 0;
         right: 0;
-        background: white;
+        background: #fffbe9;
         flex-direction: column;
         align-items: center;
         gap: 16px;
         padding: 15px 0;
-        border-top: 1px solid #e5e7eb;
+        border-top: 1px solid #e5d3a3;
         display: none;
     }
 
