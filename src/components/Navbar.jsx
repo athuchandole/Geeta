@@ -1,41 +1,67 @@
 // src/components/Navbar.jsx
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css';
-import { ThemeContext } from '../context/ThemeContext';
+import React, { useState, useContext } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext";
+import "./Navbar.css";
 
 const Navbar = () => {
-    const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [open, setOpen] = useState(false);
     const { theme, toggleTheme } = useContext(ThemeContext);
+    const location = useLocation();
 
-    const toggleMenu = () => {
-        setMobileMenuOpen(!isMobileMenuOpen);
+    const handleNavClick = () => {
+        // Close popup / mobile menu after clicking a link
+        setOpen(false);
     };
 
     return (
-        <nav className={`navbar`}>
-            <div className="navbar-container">
-                <div className="left-section">
-                    <h2 className="logo">Bhagavad Gita</h2>
+        <nav className={`lux-navbar ${theme}`}>
+            <div className="nav-inner">
+                {/* Brand: behaves like "Chapters" (go home) */}
+                <h2 to="/" className="brand" onClick={handleNavClick}>Bhagavad Gita
+                </h2>
+
+                {/* Links */}
+                <div className={`links ${open ? "show" : ""}`}>
+                    <Link
+                        to="/"
+                        onClick={handleNavClick}
+                        className={location.pathname === "/" ? "active" : ""}
+                    >
+                        Chapters
+                    </Link>
+
+                    <Link
+                        to="/quotes"
+                        onClick={handleNavClick}
+                        className={location.pathname.startsWith("/quotes") ? "active" : ""}
+                    >
+                        Quotes
+                    </Link>
+
+                    <Link
+                        to="/about"
+                        onClick={handleNavClick}
+                        className={location.pathname.startsWith("/about") ? "active" : ""}
+                    >
+                        About
+                    </Link>
                 </div>
 
-                <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
-                    <Link to="/">Chapters</Link>
-                    <Link to="/quotes">Quotes</Link>
-                    <Link to="/about">About Gita</Link>
-                </div>
-
-                <div className="navbar-actions">
+                {/* Right Icons */}
+                <div className="actions">
                     <button className="theme-toggle" onClick={toggleTheme}>
-                        {theme === 'light' ? '🌙' : '☀️'}
+                        {theme === "light" ? "🌙" : "☀️"}
                     </button>
-                    <select className="language-dropdown">
-                        <option value="en">English</option>
-                        <option value="hi">Hindi</option>
-                        <option value="mr">Marathi</option>
-                        <option value="gu">Gujarati</option>
-                    </select>
-                    <button className="hamburger" onClick={toggleMenu}>☰</button>
+
+                    <button
+                        className="menu-btn"
+                        onClick={() => setOpen(!open)}
+                        aria-label="Toggle navigation menu"
+                        aria-expanded={open}
+                    >
+                        ☰
+                    </button>
                 </div>
             </div>
         </nav>

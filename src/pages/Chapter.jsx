@@ -1,35 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import chapterAPI from '../api/chapters';
-import Loading from '../components/Loading';
-import './Chapter.css';
+// src/pages/Chapter.jsx
+import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext";
+import api from "../api/chapters";
+import Loading from "../components/Loading";
+import "./Chapter.css";
 
 const Chapter = () => {
+    const { theme } = useContext(ThemeContext);
     const [chapters, setChapters] = useState([]);
 
     useEffect(() => {
-        const fetch = async () => {
-            const data = await chapterAPI.getChapters();
-            setChapters(data);
-        };
-        fetch();
+        (async () => {
+            const data = await api.getChapters();
+            setChapters(data || []);
+        })();
     }, []);
 
-    if (chapters.length === 0) return <Loading />;
+    if (!chapters.length) return <Loading text="Fetching chapters..." />;
 
     return (
-        <div className="chapter-container">
-            <h1 className="chapter-heading">📜 श्रीमद्भगवद्गीता - Chapters</h1>
-            <div className="chapter-grid">
-                {chapters.map(ch => (
-                    <Link to={`/chapter/${ch.id}`} className="chapter-card" key={ch.id}>
-                        <div className="card-content">
-                            <h2>{ch.chapter_number}. {ch.name}</h2>
-                            <p><span>Meaning:</span> {ch.name_meaning}</p>
-                            <p><span>Translation:</span> {ch.name_translated}</p>
-                            <p><span>Transliteration:</span> {ch.name_transliterated}</p>
-                            <p><span>Verses:</span> {ch.verses_count}</p>
-                        </div>
+        <div className={`chapter-page ${theme}`}>
+            <h2 className="chapter-title">📖 Bhagavad Gita – Chapters</h2>
+
+            <div className="chapter-list">
+                {chapters.map((ch) => (
+                    <Link
+                        key={ch.id}
+                        to={`/chapter/${ch.id}`}
+                        className="chapter-card"
+                    >
+                        <h3>{ch.name}</h3>
+                        <p>{ch.verses_count} verses</p>
                     </Link>
                 ))}
             </div>

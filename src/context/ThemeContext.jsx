@@ -1,30 +1,27 @@
 // src/context/ThemeContext.jsx
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useEffect, useState } from "react";
 
-export const ThemeContext = createContext();
+export const ThemeContext = createContext({
+    theme: "light",
+    toggleTheme: () => { },
+});
 
 export const ThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState(
+        localStorage.getItem("gita_theme") || "light"
+    );
 
     useEffect(() => {
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        setTheme(savedTheme);
-    }, []);
+        localStorage.setItem("gita_theme", theme);
 
-    useEffect(() => {
-        // Apply theme to body class
-        document.body.classList.remove('light', 'dark');
-        document.body.classList.add(theme);
-        localStorage.setItem('theme', theme);
+        document.body.style.background = theme === "light" ? "#ffffff" : "#1c1c1c";
+        document.body.style.color = theme === "light" ? "#222" : "#f2f2f2";
+        document.body.style.fontFamily = "Inter, sans-serif";
+        document.body.style.margin = 0;
     }, [theme]);
 
-    const toggleTheme = () => {
-        setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-    };
-
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <ThemeContext.Provider value={{ theme, toggleTheme: () => setTheme(t => t === "light" ? "dark" : "light") }}>
             {children}
         </ThemeContext.Provider>
     );
