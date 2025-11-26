@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Loading from '../components/Loading';
 import chapterAPI from '../api/chapters';
+import Loading from '../components/Loading';
 import './Chapter.css';
 
 const Chapter = () => {
@@ -21,7 +21,7 @@ const Chapter = () => {
         <div className="chapter-container">
             <h1 className="chapter-heading">📜 श्रीमद्भगवद्गीता - Chapters</h1>
             <div className="chapter-grid">
-                {chapters.map((ch) => (
+                {chapters.map(ch => (
                     <Link to={`/chapter/${ch.id}`} className="chapter-card" key={ch.id}>
                         <div className="card-content">
                             <h2>{ch.chapter_number}. {ch.name}</h2>

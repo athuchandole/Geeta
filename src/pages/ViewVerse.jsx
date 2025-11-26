@@ -22,18 +22,22 @@ const ViewVerse = () => {
         <div className="view-container">
             <div className="verse-card">
                 <h2 className="verse-title">🕉️ Chapter {chapterId}, Verse {verseId}</h2>
+
                 <div className="verse-section">
                     <h3>📜 Sanskrit</h3>
                     <p className="sanskrit-text">{verse.text}</p>
                 </div>
+
                 <div className="verse-section">
                     <h3>🗣️ Translation</h3>
                     <p>{verse.translations?.[0]?.description}</p>
                 </div>
+
                 <div className="verse-section">
                     <h3>🔍 Word Meaning</h3>
                     <p>{verse.word_meanings}</p>
                 </div>
+
                 <div className="back-link">
                     <Link to={`/chapter/${chapterId}`}>← Back to Chapter</Link>
                 </div>

@@ -22,7 +22,7 @@ const VerseList = () => {
         <div className="verse-container">
             <h2 className="verse-heading">📜 Chapter {id} - Verses</h2>
             <div className="verse-grid">
-                {verses.map((v) => (
+                {verses.map(v => (
                     <Link
                         key={v.id}
                         to={`/chapter/${id}/verse/${v.verse_number}`}
@@ -35,6 +35,7 @@ const VerseList = () => {
                     </Link>
                 ))}
             </div>
+
             <div className="back-link">
                 <Link to="/">← Back to Chapters</Link>
             </div>

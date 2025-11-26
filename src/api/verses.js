@@ -1,24 +1,50 @@
-// src/api/verses.js
-import API from './client';
+import allVerses from '../json/allverses.json';
+import particularVerse from '../json/particularverse.json';
+import particularChapter from '../json/particularchapter.json';
 
+/**
+ * Get all verses of a chapter
+ */
 const getVersesByChapter = async (chapterId) => {
     try {
-        const response = await API.get(`/chapters/${chapterId}/verses/`);
-        return response.data || [];
+        // Filter the allVerses array for the given chapter_number
+        const verses = allVerses.filter(
+            (v) => String(v.chapter_number) === String(chapterId)
+        );
+
+        // Fallback to particularChapter if no verses found
+        if (verses.length === 0 && String(particularChapter.chapter_number) === String(chapterId)) {
+            return [particularChapter];
+        }
+
+        return verses;
     } catch (error) {
-        console.error('Error fetching verses:', error);
+        console.error('Error loading verses:', error);
         return [];
     }
 };
 
-// ✅ New logic: fetch all verses in chapter, then find specific verse
+/**
+ * Get a single verse by chapterId and verseId
+ */
 const getVerse = async (chapterId, verseId) => {
     try {
-        const response = await API.get(`/chapters/${chapterId}/verses/`);
-        const verses = response.data || [];
-        return verses.find((v) => String(v.verse_number) === String(verseId)) || null;
+        const verses = await getVersesByChapter(chapterId);
+
+        // Find the verse in filtered chapter
+        let found = verses.find(
+            (v) => String(v.verse_number) === String(verseId)
+        );
+
+        // Fallback to particularVerse JSON if not found
+        if (!found && String(particularVerse.chapter_number) === String(chapterId)
+            && String(particularVerse.verse_number) === String(verseId)) {
+            found = particularVerse;
+        }
+
+        return found || null;
     } catch (error) {
-        console.error('Error fetching verse:', error);
+        console.error('Error loading specific verse:', error);
         return null;
     }
 };

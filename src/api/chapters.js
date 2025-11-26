@@ -1,12 +1,11 @@
 // src/api/chapters.js
-import API from './client';
+import allChapters from '../json/allchapters.json';
 
 const getChapters = async () => {
     try {
-        const response = await API.get('/chapters/');
-        return response.data || [];
+        return allChapters || [];
     } catch (error) {
-        console.error('Error fetching chapters:', error);
+        console.error("Error loading chapters JSON:", error);
         return [];
     }
 };
