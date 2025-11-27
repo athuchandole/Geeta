@@ -39,7 +39,7 @@ const Navbar = () => {
             <div className="nav-inner">
                 <div className="nav-left" aria-hidden={menuOpen}>
                     <Link to="/Geeta/" className="brand" onClick={() => setMenuOpen(false)}>
-                        <span className="brand-text">Bhagawad Gita</span>
+                        <span className="brand-text">Bhagavad Gita</span>
                     </Link>
                 </div>
 
