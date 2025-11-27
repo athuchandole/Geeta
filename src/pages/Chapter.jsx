@@ -26,8 +26,8 @@ const Chapter = () => {
             <div className="chapter-list">
                 {chapters.map((ch) => (
                     <Link
-                        key={ch.id}
-                        to={`/chapter/${ch.id}`}
+                        key={ch.chapter_number}
+                        to={`/chapter/${ch.chapter_number}`}
                         className="chapter-card"
                     >
                         <h3>{ch.name}</h3>

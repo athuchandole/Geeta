@@ -23,10 +23,11 @@ const VerseList = () => {
     return (
         <div className={`verse-list-page ${theme}`}>
             <h2>Chapter {id} – Verses</h2>
+
             <div className="verse-list">
-                {verses.map(v => (
+                {verses.map((v) => (
                     <Link
-                        key={v.id}
+                        key={v.verse_number}
                         to={`/chapter/${id}/verse/${v.verse_number}`}
                         className="verse-item"
                     >

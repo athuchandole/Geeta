@@ -1,11 +1,11 @@
 // src/api/chapters.js
-import allChapters from '../json/allchapters.json';
+import allData from "../json/alldata.json";
 
 const getChapters = async () => {
     try {
-        return allChapters || [];
+        return allData.CHAPTERS || [];
     } catch (error) {
-        console.error("Error loading chapters JSON:", error);
+        console.error("Error loading alldata.json chapters:", error);
         return [];
     }
 };
