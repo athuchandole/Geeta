@@ -6,10 +6,8 @@ import allData from "../json/alldata.json";
  */
 const getVersesByChapter = async (chapterId) => {
     try {
-        // VERSES is a 2D array → index is chapter_number - 1
         const index = Number(chapterId) - 1;
-        const chapterVerses = allData.VERSES[index];
-
+        const chapterVerses = allData.VERSES?.[index];
         return chapterVerses || [];
     } catch (error) {
         console.error("Error loading verses:", error);
@@ -23,12 +21,8 @@ const getVersesByChapter = async (chapterId) => {
 const getVerse = async (chapterId, verseId) => {
     try {
         const verses = await getVersesByChapter(chapterId);
-
         return (
-            verses.find(
-                (v) =>
-                    String(v.verse_number) === String(verseId)
-            ) || null
+            verses.find((v) => String(v.verse_number) === String(verseId)) || null
         );
     } catch (error) {
         console.error("Error loading verse:", error);

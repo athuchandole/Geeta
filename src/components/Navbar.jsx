@@ -1,70 +1,88 @@
 // src/components/Navbar.jsx
-import React, { useState, useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
+import { LanguageContext } from "../context/LanguageContext";
 import "./Navbar.css";
 
 const Navbar = () => {
-    const [open, setOpen] = useState(false);
     const { theme, toggleTheme } = useContext(ThemeContext);
-    const location = useLocation();
+    const { language, toggleLanguage } = useContext(LanguageContext);
 
-    const handleNavClick = () => {
-        // Close popup / mobile menu after clicking a link
-        setOpen(false);
-    };
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    // close menu on route change / escape
+    useEffect(() => {
+        const onKey = (e) => {
+            if (e.key === "Escape") setMenuOpen(false);
+        };
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+    }, []);
+
+    // keep document scroll locked when mobile menu open
+    useEffect(() => {
+        if (menuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+    }, [menuOpen]);
+
+    const toggleMenu = () => setMenuOpen((s) => !s);
+
+    // show the label for the language toggle as the other-language shorthand
+    const langLabel = language === "en" ? "हिंदी" : "EN";
 
     return (
-        <nav className={`lux-navbar ${theme}`}>
+        <header className={`lux-navbar ${theme}`} role="banner">
             <div className="nav-inner">
-                {/* Brand: behaves like "Chapters" (go home) */}
-                <h2 to="/" className="brand" onClick={handleNavClick}>Bhagavad Gita
-                </h2>
-
-                {/* Links */}
-                <div className={`links ${open ? "show" : ""}`}>
-                    <Link
-                        to="/"
-                        onClick={handleNavClick}
-                        className={location.pathname === "/" ? "active" : ""}
-                    >
-                        Chapters
-                    </Link>
-
-                    <Link
-                        to="/quotes"
-                        onClick={handleNavClick}
-                        className={location.pathname.startsWith("/quotes") ? "active" : ""}
-                    >
-                        Quotes
-                    </Link>
-
-                    <Link
-                        to="/about"
-                        onClick={handleNavClick}
-                        className={location.pathname.startsWith("/about") ? "active" : ""}
-                    >
-                        About
+                <div className="nav-left" aria-hidden={menuOpen}>
+                    <Link to="/Geeta/" className="brand" onClick={() => setMenuOpen(false)}>
+                        <span className="brand-text">Bhagawad Gita</span>
                     </Link>
                 </div>
 
-                {/* Right Icons */}
-                <div className="actions">
-                    <button className="theme-toggle" onClick={toggleTheme}>
-                        {theme === "light" ? "🌙" : "☀️"}
-                    </button>
+                <nav className="nav-center" aria-label="Primary navigation">
+                    <div className={`links ${menuOpen ? "show" : ""}`}>
+                        <Link to="/Geeta" onClick={() => setMenuOpen(false)}>Home</Link>
+                        <Link to="/quotes" onClick={() => setMenuOpen(false)}>Quotes</Link>
+                        <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
+                    </div>
+                </nav>
 
-                    <button
-                        className="menu-btn"
-                        onClick={() => setOpen(!open)}
-                        aria-label="Toggle navigation menu"
-                        aria-expanded={open}
-                    >
-                        ☰
-                    </button>
+                <div className="nav-right">
+                    <div className="actions">
+                        <button
+                            className="theme-toggle"
+                            aria-label="Toggle theme"
+                            title={theme === "light" ? "Switch to dark" : "Switch to light"}
+                            onClick={toggleTheme}
+                        >
+                            {theme === "light" ? "🌙" : "☀️"}
+                        </button>
+
+                        <button
+                            className="theme-toggle"
+                            aria-label="Toggle language"
+                            title="Toggle language"
+                            onClick={toggleLanguage}
+                        >
+                            {langLabel}
+                        </button>
+
+                        <button
+                            className="menu-btn"
+                            aria-expanded={menuOpen}
+                            aria-label={menuOpen ? "Close menu" : "Open menu"}
+                            onClick={toggleMenu}
+                        >
+                            {menuOpen ? "✕" : "☰"}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </nav>
+        </header>
     );
 };
 

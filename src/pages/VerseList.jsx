@@ -2,12 +2,19 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
+import { LanguageContext } from "../context/LanguageContext";
 import api from "../api/verses";
 import Loading from "../components/Loading";
 import "./VerseList.css";
 
+const UI = {
+    en: { chapters: "Chapter", verses: "Verses", loading: "Fetching verses..." },
+    hi: { chapters: "अध्याय", verses: "श्लोक", loading: "श्लोक ला रहे हैं..." },
+};
+
 const VerseList = () => {
     const { theme } = useContext(ThemeContext);
+    const { language } = useContext(LanguageContext);
     const { id } = useParams();
     const [verses, setVerses] = useState([]);
 
@@ -18,11 +25,13 @@ const VerseList = () => {
         })();
     }, [id]);
 
-    if (!verses.length) return <Loading text="Fetching verses..." />;
+    if (!verses.length) return <Loading text={UI[language].loading} />;
 
     return (
         <div className={`verse-list-page ${theme}`}>
-            <h2>Chapter {id} – Verses</h2>
+            <h2>
+                {UI[language].chapters} {id} – {UI[language].verses}
+            </h2>
 
             <div className="verse-list">
                 {verses.map((v) => (
@@ -31,7 +40,7 @@ const VerseList = () => {
                         to={`/chapter/${id}/verse/${v.verse_number}`}
                         className="verse-item"
                     >
-                        Verse {v.verse_number}
+                        {language === "en" ? `Verse ${v.verse_number}` : `श्लोक ${v.verse_number}`}
                     </Link>
                 ))}
             </div>
