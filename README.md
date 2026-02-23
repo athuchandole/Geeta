@@ -1,5 +1,3 @@
-https://athuchandole.github.io/Geeta/
-
 <img width="1600" height="900" alt="b1" src="https://github.com/user-attachments/assets/a686ca7d-13cd-42a5-b127-adb05d0166da" />
 <img width="1600" height="900" alt="b2" src="https://github.com/user-attachments/assets/50ef359f-d10b-4502-bb9f-cde64ac8ff9b" />
 <img width="1600" height="900" alt="b3" src="https://github.com/user-attachments/assets/3974b30b-cf70-46fb-a21d-f8397b6950da" />
